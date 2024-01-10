@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('title')
-Home
+Create
 @endsection
 @section('page')
 
-
+KKKKKKKKK
 
 @endsection
