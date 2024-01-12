@@ -17,8 +17,8 @@ return new class extends Migration
       $table->string('name');
       $table->text('describe');
       $table->string('category');
-      $table->integer('stored_quantity');
-      $table->integer('sold_amount');
+      $table->bigInteger('stored_quantity');
+      $table->bigInteger('sold_amount')->default(0);
       $table->unsignedBigInteger('user_id');
       $table->foreign('user_id')
       ->references('id')->on('users');

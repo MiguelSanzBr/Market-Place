@@ -6,11 +6,14 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Image;
+use Illuminate\Support\Facades\File;
 
 class Imageproduct extends Component
 {
     use WithFileUploads;
- 
+   
+    public $idProduct;
     public $photo;
     
     public function render()
@@ -21,24 +24,40 @@ class Imageproduct extends Component
     {
         $this->validate([
             'photo' => 'image|max:1024',
+            'idProduct' => 'required|integer'
         ]);
        if ($this->photo) {
         
         $extension = $this->photo->extension();
-        $fileName = time() . '.' . $this->photo->extension();
-        $imageName = basename($this->photo->getClientOriginalName(), '.' . $extension);
+        $imageName = time() . '.' . $this->photo->extension();
+         $fileName = basename($this->photo->getClientOriginalName(), '.' . $extension);
         
-      $save=$this->photo->storeAs('product', $fileName);
+      $save=$this->photo->storeAs('product', $imageName);
      $saved = Storage::disk('local')->exists($save);
-       
-      if ($saved) {
-          
-           return redirect()->route('product.get'); 
-        } else {
-             
+        if ($saved) {
+        $img = Image::create([
+    "image_path" => $save,
+    "image_name" => $imageName,
+    "product_id" => $this->idProduct
+]);
+if ($img){
+$this->js("alert('Image added!'); window.location.reload();");
+}
+  }
+  else
+        {
+           die();  
         }
-        
-    }
+      }
+   }
+    public function editProduct()
+{
   
-    }
+    return redirect()->route('Product.edit')->with('idProduct',$this->idProduct);
+
+}
+public function deleteimg(){
+  $this->js("alert('Image Deleted!'); window.location.reload();");
+}
+
 }

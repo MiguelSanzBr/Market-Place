@@ -5,12 +5,12 @@ Product New
 @section('page')
 
 <div class="container">
-  <form method="POST" action="{{route('product.post')}}" >
+  <form method="POST" action="{{route('Product.post')}}" >
     @csrf
+       <input type="hidden" value="{{ auth()->id() }}" name="user_id">
     <div class="mb-3">
-      <label for="price" class="form-label">Preço</label>
-      <input type="number" class="form-control" name="price" placeholder="Insira o preço" step="0.01">
-    </div>
+<label for="price" class="form-label">Preço</label>
+<input type="text" class="form-control" name="price" placeholder="Insira o preço" oninput="this.value = this.value.replace('.', '').replace(',', '.')" pattern="[0-9]+(\.[0-9]{2})?" title="Insira um número válido (utilize vírgula como separador decimal, se necessário)">
     <div class="mb-3">
       <label for="name" class="form-label">Nome</label>
       <input type="text" class="form-control" name="name" placeholder="Insira o nome" required>

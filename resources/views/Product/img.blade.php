@@ -1,9 +1,7 @@
 @extends('layout.app')
 @section('title')
-Home
+Image Product
 @endsection
 @section('page')
-
-@livewire('imageproduct')
-
+@livewire('imageproduct', ['idProduct' => $idProduct])
 @endsection

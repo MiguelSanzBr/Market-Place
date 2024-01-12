@@ -6,7 +6,7 @@ use App\Http\Controllers\MarketProduct;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Livewire\Imageproduct;
 
 
 Route::get('/', function () {
@@ -26,9 +26,11 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/address', [AddressController::class, 'store']);
     
-    Route::get('/product', [ProductController::class, 'index'])->name('product.get');
+    Route::get('/product', [ProductController::class, 'index'])->name('Product.create');
     
-    Route::post('/product', [ProductController::class, 'create'])->name('product.post');
+    Route::post('/product', [ProductController::class, 'create'])->name('Product.post');
+    Route::get('/product/img', [ProductController::class,'img'])->name('Product.img');
+    Route::get('/product/edit', [ProductController::class,'edit'])->name('Product.edit');
 });
 
 
